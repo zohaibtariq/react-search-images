@@ -1,36 +1,23 @@
-import React from 'react';
-
+import React from 'react'
 class SearchBar extends React.Component{
-    onInputChange(event){
-        console.log('on input change');
-        console.log('...value...');
-        console.log(event.target.value);
-        console.log(event);
-    }
-    onInputClick(event){
-        console.log('on click');
-        console.log('...value...');
-        console.log(event.target.value);
-        console.log(event);
-    }
-    onInputSubmit(event){
-        console.log('on submit');
-        console.log('...value...');
-        console.log(event.target.value);
-        console.log(event);
+    state = {searchTerm: ''}
+    onFormSubmit = (event) => {
+        event.preventDefault()
+        console.log('getting value of search term...')
+        console.log(this.state.searchTerm)
+        this.props.onSearchSubmit(this.state.searchTerm)
     }
     render(){
         return (
             <div className={`ui segment`}>
-                <form action="" className={`ui form`}>
+                <form action="" onSubmit={(event) => this.onFormSubmit(event)} className={`ui form`}>
                     <div className={`field`}>
                         <label>Image Search</label>
-                        <input type="text" onChange={this.onInputChange} onClick={this.onInputClick} onSubmit={this.onInputSubmit}/>
+                        <input type="text" value={this.state.searchTerm} onChange={e => this.setState({searchTerm: e.target.value})} placeholder={`Type to search`} autoFocus={true}/>
                     </div>
                 </form>
             </div>
-        );
+        )
     }
 }
-
-export default SearchBar;
+export default SearchBar
